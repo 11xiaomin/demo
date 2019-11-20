@@ -52,26 +52,27 @@
     <script src='./js/jquery-1.12.4.min.js'></script>
     <script src='./js/bootstrap/js/bootstrap.min.js'></script>
     <script>
-        var user = {
-            login: function (myName, myPassword) {
-                $.post("http://localhost:8000/admin/login",
-                    { user_name: myName, password: myPassword },
-                    function (res) {
-                        console.log(res);
-                        if (res.code === 200) {
-                            // alert("登录成功")
-                            // $('#myModal').modal('show');
-                            location.href = "./index.html";
-                            // location.assign("./index.html")
-                        } else {
-                            $('#myModal').modal('show');
-                            $("#info").text(res.msg)
-                            // alert("登录失败")
-                        }
-                    })
-            }
-        }
+        // var user = {
+        //     login: function (myName, myPassword) {
+        //         $.post("http://localhost:8000/admin/login",
+        //             { user_name: myName, password: myPassword },
+        //             function (res) {
+        //                 console.log(res);
+        //                 if (res.code === 200) {
+        //                     // alert("登录成功")
+        //                     // $('#myModal').modal('show');
+        //                     location.href = "./index.html";
+        //                     // location.assign("./index.html")
+        //                 } else {
+        //                     $('#myModal').modal('show');
+        //                     $("#info").text(res.msg)
+        //                     // alert("登录失败")
+        //                 }
+        //             })
+        //     }
+        // }
     </script>
+    <script src="js/mokuaihua/user.js"></script>
     <script>
         $("#btn").click(function () {
             // 获取用户的信息
@@ -83,22 +84,33 @@
                 $("#info").text("不能为空，请重新输入")
                 // alert("不能为空，")
                 return;
-                }
-                // $.post("http://localhost:8000/admin/login", { user_name: myName, password: myPassword }, function (res) {
-                //     console.log(res);
-                //     if (res.code === 200) {
-                //         // alert("登录成功")
-                //         // $('#myModal').modal('show');
-                //         location.href = "./index.html";
-                //         // location.assign("./index.html")
-                //     } else {
-                //         $('#myModal').modal('show');
-                //         $("#info").text(res.msg)
-                //         // alert("登录失败")
-                //     }
-                // })
-                user.login(myName, myPassword);
             }
+            // $.post("http://localhost:8000/admin/login", { user_name: myName, password: myPassword }, function (res) {
+            //     console.log(res);
+            //     if (res.code === 200) {
+            //         // alert("登录成功")
+            //         // $('#myModal').modal('show');
+            //         location.href = "./index.html";
+            //         // location.assign("./index.html")
+            //     } else {
+            //         $('#myModal').modal('show');
+            //         $("#info").text(res.msg)
+            //         // alert("登录失败")
+            //     }
+            // })
+            user.login(myName, myPassword, function (res) {
+                if (res.code === 200) {
+                    // alert("登录成功")
+                    // $('#myModal').modal('show');
+                    location.href = "./index.html";
+                    // location.assign("./index.html")
+                } else {
+                    $('#myModal').modal('show');
+                    $("#info").text(res.msg)
+                    // alert("登录失败")
+                }
+            });
+        }
         )
 
 
