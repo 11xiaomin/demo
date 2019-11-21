@@ -144,7 +144,10 @@
         });
         // 实现删除
         $('#categorycontain').on('click', '.btn-danger', function (res) {
-            console.log(this);
+            // console.log(this);
+            if (confirm('确定要删除吗？') === false) {
+                return;
+            }
             // 获取自定义属性的值
             var id = $(this).attr('data_id');
             console.log(id);
