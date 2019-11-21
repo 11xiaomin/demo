@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody id="categorycontain">
-   
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -53,11 +53,11 @@
                     <form>
                         <div class="form-group">
                             <label for="recipient-name" class="control-label">分类名称:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="cate_name">
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="control-label">分类别名:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="cate_slug">
                         </div>
                     </form>
                 </div>
@@ -68,6 +68,7 @@
             </div>
         </div>
     </div>
+    <script src="js/mokuaihua/config.js"></script>
     <script src="./js/mokuaihua/category.js"></script>
     <script src="./js/template-web.js"></script>
     <script>
@@ -81,10 +82,10 @@
             $('#addModal').modal('hide');
         });
 
-        $('#model_add').click(function () {
-            alert('add');
-            $('#addModal').modal('hide');
-        });
+        // $('#model_add').click(function () {
+        //     alert('add');
+        //     $('#addModal').modal('hide');
+        // });
 
         $('.category_table').delegate('a', 'click', function () {
             if ($(this).hasClass('btn-info')) {
@@ -101,19 +102,62 @@
             <td class="text-center">
                 <a href="javascript:editTr({&quot;id&quot;:&quot;4&quot;,&quot;slug&quot;:&quot;travel&quot;,&quot;name&quot;:&quot;爱旅行&quot;});"
                     class="btn btn-info btn-xs">编辑</a>
-                <a href="javascript:deleteTr( 4 );" class="btn btn-danger btn-xs">删除</a>
+                <a href="javascript:;" data_id="{{item.id}}" class="btn btn-danger btn-xs">删除</a>
             </td>
         </tr>
        {{/each}}
     
     </script>
     <script>
-        category.Show(function (res) {
-            // console.log('数据', res);
-            var htmlStr = template("cateTemp",res)
-            // console.log(htmlStr);
-            $('#categorycontain').html(htmlStr);
-        })
+        // 获取数据并显示
+        function fn() {
+
+            category.Show(function (res) {
+                // console.log('数据', res);
+                var htmlStr = template("cateTemp", res)
+                // console.log(htmlStr);
+                $('#categorycontain').html(htmlStr);
+            })
+        }
+        // 实现新增
+        $('#model_add').click(function () {
+            // 获取用户信息
+            var name = $('#cate_name').val().trim();
+            var slug = $('#cate_slug').val().trim();
+            // 判断是否为空
+            if (name === '' || slug === '') {
+                alert('不能为空')
+            }
+            // 调用接口
+            category.Add(name, slug, function (res) {
+                console.log(res);
+                if (res.code === 200) {
+                    // 重新加载页面
+                    fn();
+                    // 清空内容
+                    var name = $('#cate_name').val('');
+                    var slug = $('#cate_slug').val('');
+                    // 同时模态框关闭
+                    $('#addModal').modal('hide');
+                }
+            });
+        });
+        // 实现删除
+        $('#categorycontain').on('click', '.btn-danger', function (res) {
+            console.log(this);
+            // 获取自定义属性的值
+            var id = $(this).attr('data_id');
+            console.log(id);
+            // 调用接口
+            category.Del(id, function (res) {
+                console.log(res);
+                if (res.code === 200) {
+                    fn();
+                }
+            })
+        });
+        // 页面加载去调用
+        fn();
     </script>
 
 </body>

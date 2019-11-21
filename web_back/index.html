@@ -123,6 +123,7 @@
         //     }
         // }
     </script>
+    <script src="js/mokuaihua/config.js"></script>
     <script src="js/mokuaihua/user.js"></script>
     <script>
         // 获取用户信息
@@ -154,9 +155,9 @@
             user.logout(function (res) {
                 console.log(res);
                 // 判断如果确定就返回登录页面
-                // if (res.code === 200) {
-                //     location.href = "./login.html"
-                // }
+                if (res.code === 200) {
+                    location.href = "./login.html"
+                }
             });
         })
 

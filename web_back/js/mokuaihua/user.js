@@ -1,9 +1,9 @@
 
-var baseUrl = 'http://localhost:8000/';
+// var baseUrl = 'http://localhost:8000/';
 
 var user = {
     login: function (myName, myPassword, callback) {
-        $.post(baseUrl + 'admin/login',
+        $.post(APIURLS.user_login,
             { user_name: myName, password: myPassword },
             function (res) {
                 // console.log(res);
@@ -12,12 +12,12 @@ var user = {
             })
     },
     logout: function (callback) {
-        $.post(baseUrl + 'admin/logout', function (res) {
+        $.post(APIURLS.user_logout, function (res) {
             callback(res);
         })
     },
     getInfo: function (callback) {
-        $.get(baseUrl + 'admin/getuser', function (res) {
+        $.get(APIURLS.user_getInfo, function (res) {
             callback(res);
         })
     }
