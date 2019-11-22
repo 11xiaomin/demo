@@ -9,7 +9,7 @@ var category = {
     },
     Del: function (id, callback) {
         $.post(APIURLS.category_Del,
-            { 'id': id },
+            { id: id },
             function (res) {
                 callback(res)
             })
@@ -24,5 +24,16 @@ var category = {
                 callback(res);
             }
         )
+    },
+    Edit: function (id, name, slug, callback) {
+        $.post(APIURLS.category_Edit,
+            {
+                id: id,
+                name: name,
+                slug: slug
+            },
+            function (res) {
+                callback(res);
+            })
     }
 }
