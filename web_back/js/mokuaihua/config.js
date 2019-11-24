@@ -10,5 +10,9 @@ var APIURLS = {
     category_Show: baseUrl + 'admin/category_search',
     category_Del: baseUrl + 'admin/category_delete',
     category_Add: baseUrl + 'admin/category_add',
-    category_Edit:baseUrl+'admin/category_edit'
+    category_Edit: baseUrl + 'admin/category_edit',
+
+    // 文章搜索
+    article_Show: baseUrl + 'admin/search'
+
 }
